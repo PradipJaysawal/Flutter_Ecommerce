@@ -45,21 +45,26 @@ class RegisterView extends GetView<AuthController> {
                 ),
                 Gap(10),
                 //w3 Password
-                TextFormField(
-                  controller: controller.password,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "Enter your Password",
-                    label: Text("Password"),
-                    prefixIcon: Icon(Icons.password),
-                    suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.visibility),
+                Obx(() {
+                  return TextFormField(
+                    controller: controller.password,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: "Enter your Password",
+                      label: Text("Password"),
+                      prefixIcon: Icon(Icons.password),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          controller.togglePassword();
+                        },
+                        icon: Icon(Icons.visibility),
+                      ),
                     ),
-                  ),
-                  validator: (value) =>
-                      value!.isEmpty ? 'Password required' : null,
-                ),
+                    validator: (value) =>
+                        value!.isEmpty ? 'Password required' : null,
+                    obscureText: controller.hidePassword.value,
+                  );
+                }),
                 Gap(10),
                 //w4 whatsapp
                 TextFormField(
@@ -93,7 +98,7 @@ class RegisterView extends GetView<AuthController> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text("Already have an account ?"),
-                    //Routes to register page
+                    //Routes to login page
                     InkWell(
                       onTap: () {
                         Get.toNamed(AppRoutes.login);

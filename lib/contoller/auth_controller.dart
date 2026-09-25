@@ -1,3 +1,4 @@
+import 'package:fecommerce/model/login_model.dart';
 import 'package:fecommerce/model/register_model.dart';
 import 'package:fecommerce/routes/app_routes.dart';
 import 'package:fecommerce/service/auth_service.dart';
@@ -7,7 +8,9 @@ import 'package:get/get.dart';
 class AuthController extends GetxController {
   var isLoggedIn = false.obs;
   var isLoading = false.obs;
+  var hidePassword = true.obs;
   var message = RegisterModel(success: false, token: null, message: null).obs;
+  var loginMessage = LoginModel(success: false, token: null, message: null).obs;
 
   //Text editing controller
   var name = TextEditingController();
@@ -37,6 +40,24 @@ class AuthController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  //LOGIN
+  Future login() async {
+    try {
+      isLoading(true);
+      var response = await AuthService.login(email.text, password.text);
+      if (response.statusCode == 200) {
+        loginMessage.value = LoginModel.fromJson(response.data);
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  //hide and show password
+  void togglePassword() {
+    hidePassword.value = !hidePassword.value;
   }
 
   @override

@@ -2,6 +2,7 @@ import 'package:fecommerce/utils/dio_connector.dart';
 import 'package:get/get.dart';
 
 class AuthService {
+  //register
   static Future<dynamic> register(
     String name,
     String email,
@@ -16,6 +17,15 @@ class AuthService {
         "password": password,
         "whatsapp": whatsapp,
       },
+    );
+    return response;
+  }
+
+  //login
+  static Future<dynamic> login(String email, String password) async {
+    var response = await DioConnector.dio.post(
+      "login",
+      data: {"email": email, "password": password},
     );
     return response;
   }
