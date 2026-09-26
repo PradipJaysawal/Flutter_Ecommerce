@@ -1,9 +1,8 @@
 import 'package:fecommerce/contoller/auth_controller.dart';
+import 'package:fecommerce/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-
-import '../routes/app_routes.dart';
 
 class RegisterView extends GetView<AuthController> {
   const new({super.key});
@@ -18,39 +17,39 @@ class RegisterView extends GetView<AuthController> {
             key: key,
             child: Column(
               children: [
-                //w1
+                // w1 Name
                 TextFormField(
                   controller: controller.name,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: "Enter your Name",
+                    hintText: "Enter your name",
                     label: Text("Name"),
                     prefixIcon: Icon(Icons.person),
                   ),
-                  validator: (value) => value!.isEmpty ? 'Name required' : null,
+                  validator: (value) => value!.isEmpty ? 'Name Required' : null,
                 ),
 
-                Gap(10),
-                //w2 Email
+                Gap(20),
+                // w2 Email
                 TextFormField(
                   controller: controller.email,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: "Enter your Email",
+                    hintText: "Enter your email",
                     label: Text("Email"),
                     prefixIcon: Icon(Icons.email),
                   ),
                   validator: (value) =>
-                      value!.isEmpty ? 'Email required' : null,
+                      value!.isEmpty ? 'Email Required' : null,
                 ),
-                Gap(10),
-                //w3 Password
+                Gap(20),
+                // w3 Password
                 Obx(() {
                   return TextFormField(
                     controller: controller.password,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: "Enter your Password",
+                      hintText: "Enter your password",
                       label: Text("Password"),
                       prefixIcon: Icon(Icons.password),
                       suffixIcon: IconButton(
@@ -60,45 +59,43 @@ class RegisterView extends GetView<AuthController> {
                         icon: Icon(Icons.visibility),
                       ),
                     ),
-                    validator: (value) =>
-                        value!.isEmpty ? 'Password required' : null,
                     obscureText: controller.hidePassword.value,
+                    validator: (value) =>
+                        value!.isEmpty ? 'Password Required' : null,
                   );
                 }),
-                Gap(10),
-                //w4 whatsapp
+                Gap(20),
                 TextFormField(
                   controller: controller.whatsapp,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: "Enter your Number",
-                    label: Text("Number"),
+                    hintText: "Enter your number",
+                    label: Text("Phone no."),
                     prefixIcon: Icon(Icons.phone),
                   ),
                   validator: (value) =>
-                      value!.isEmpty ? 'Whatsapp required' : null,
+                      value!.isEmpty ? 'Phone Required' : null,
                 ),
-                Gap(10),
-                //w5
+                Gap(20),
                 SizedBox(
                   width: double.infinity,
-                  height: 40,
+                  height: 50,
                   child: FilledButton(
                     onPressed: () {
                       if (key.currentState!.validate()) {
-                        print("success");
+                        print("Success");
                         controller.register();
                       }
                     },
                     child: Text("Register"),
                   ),
                 ),
-                //w6
+                Gap(20),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("Already have an account ?"),
-                    //Routes to login page
+                    Text("Already have an account?"),
                     InkWell(
                       onTap: () {
                         Get.toNamed(AppRoutes.login);

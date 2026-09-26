@@ -1,30 +1,44 @@
+import 'package:fecommerce/contoller/storage_controller.dart';
 import 'package:fecommerce/model/login_model.dart';
 import 'package:fecommerce/model/register_model.dart';
 import 'package:fecommerce/routes/app_routes.dart';
 import 'package:fecommerce/service/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
+import 'package:get/state_manager.dart';
 
 class AuthController extends GetxController {
   var isLoggedIn = false.obs;
   var isLoading = false.obs;
   var hidePassword = true.obs;
-  var message = RegisterModel(success: false, token: null, message: null).obs;
   var loginMessage = LoginModel(success: false, token: null, message: null).obs;
+  var message = RegisterModel(success: false, token: null, message: null).obs;
 
-  //Text editing controller
+  // Text Editinf Controller
   var name = TextEditingController();
   var email = TextEditingController();
   var password = TextEditingController();
   var whatsapp = TextEditingController();
 
   void checkAuth() {
-    Future.delayed(Duration(seconds: 3), () {
-      Get.offNamed(AppRoutes.login);
-    });
+    var token = StorageController().getToken();
+    if (token != null) {
+      // Home page ma jauu token xa vane
+      print("Token found: $token");
+
+      Future.delayed(Duration(seconds: 3), () {
+        Get.offNamed(AppRoutes.home);
+      });
+    } else {
+      // Login page ma jauu token xaina vane
+      print("Token not found");
+      Future.delayed(Duration(seconds: 3), () {
+        Get.offNamed(AppRoutes.login);
+      });
+    }
   }
 
-  //register
+  // Register
   Future register() async {
     try {
       isLoading(true);
@@ -42,20 +56,33 @@ class AuthController extends GetxController {
     }
   }
 
-  //LOGIN
+  // login
   Future login() async {
     try {
       isLoading(true);
-      var response = await AuthService.login(email.text, password.text);
-      if (response.statusCode == 200) {
-        loginMessage.value = LoginModel.fromJson(response.data);
+      var resposne = await AuthService.login(email.text, password.text);
+      if (resposne.statusCode == 200) {
+        print("${loginMessage.value.success}");
+        print("${loginMessage.value.token}");
+        loginMessage.value = LoginModel.fromJson(resposne.data);
+
+        if (loginMessage.value.success == true) {
+          StorageController().saveToken(loginMessage.value.token!);
+          Get.offNamed(AppRoutes.home);
+        }
       }
     } finally {
       isLoading(false);
     }
   }
 
-  //hide and show password
+  // logout
+  void logout() {
+    StorageController().deleteToken();
+    Get.offNamed(AppRoutes.login);
+  }
+
+  // Password visibility
   void togglePassword() {
     hidePassword.value = !hidePassword.value;
   }

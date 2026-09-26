@@ -17,30 +17,29 @@ class LoginView extends GetView<AuthController> {
             key: key,
             child: Column(
               children: [
-                //w1 Logo
+                // w1 Logo
                 FlutterLogo(size: 50),
-
                 Gap(10),
-                //w2 Email
+                // w2 Email
                 TextFormField(
                   controller: controller.email,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: "Enter your Email",
+                    hintText: "Enter your email",
                     label: Text("Email"),
                     prefixIcon: Icon(Icons.email),
                   ),
                   validator: (value) =>
-                      value!.isEmpty ? 'Email required' : null,
+                      value!.isEmpty ? 'Email Required' : null,
                 ),
                 Gap(10),
-                //w3 Password
+                // w3 Password
                 Obx(() {
                   return TextFormField(
                     controller: controller.password,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: "Enter your Password",
+                      hintText: "Enter your password",
                       label: Text("Password"),
                       prefixIcon: Icon(Icons.password),
                       suffixIcon: IconButton(
@@ -50,22 +49,21 @@ class LoginView extends GetView<AuthController> {
                         icon: Icon(Icons.visibility),
                       ),
                     ),
-                    validator: (value) =>
-                        value!.isEmpty ? 'Password required' : null,
                     obscureText: controller.hidePassword.value,
+                    validator: (value) =>
+                        value!.isEmpty ? 'Password Required' : null,
                   );
                 }),
                 Gap(10),
-                //w4
+                // w4
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: [Text("Forget Password")],
+                  children: [Text("Forgot Password")],
                 ),
                 Gap(10),
-                //w5 button
                 SizedBox(
                   width: double.infinity,
-                  height: 40,
+                  height: 50,
                   child: FilledButton(
                     onPressed: () {
                       if (key.currentState!.validate()) {
@@ -76,12 +74,10 @@ class LoginView extends GetView<AuthController> {
                   ),
                 ),
                 Gap(10),
-                //w6
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text("Don't have an account ?"),
-                    //Routes to register page
                     InkWell(
                       onTap: () {
                         Get.toNamed(AppRoutes.register);
