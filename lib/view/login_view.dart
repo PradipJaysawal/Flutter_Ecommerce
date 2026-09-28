@@ -1,11 +1,12 @@
 import 'package:fecommerce/contoller/auth_controller.dart';
 import 'package:fecommerce/routes/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 class LoginView extends GetView<AuthController> {
-  const new({super.key});
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +66,11 @@ class LoginView extends GetView<AuthController> {
                   width: double.infinity,
                   height: 50,
                   child: FilledButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (key.currentState!.validate()) {
-                        controller.login();
+                        Loader.show(context);
+                        await controller.login();
+                        Loader.hide();
                       }
                     },
                     child: Text("Login"),
