@@ -16,6 +16,8 @@ class HomeView extends StatelessWidget {
         title: Text("Hamro cart"),
 
         actions: [
+          Icon(Icons.shopping_cart),
+          Text("1"),
           IconButton(
             onPressed: () {
               Get.defaultDialog(

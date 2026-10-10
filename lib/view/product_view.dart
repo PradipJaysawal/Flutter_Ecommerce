@@ -10,6 +10,7 @@ class ProductView extends GetView<CartController> {
   @override
   Widget build(BuildContext context) {
     var product = Get.arguments;
+
     return Scaffold(
       appBar: AppBar(title: Text("Product Page")),
       bottomNavigationBar: Row(
@@ -19,20 +20,26 @@ class ProductView extends GetView<CartController> {
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(14),
             ),
-            child: IconButton(onPressed: () {}, icon: Icon((Icons.favorite))),
+            child: IconButton(onPressed: () {}, icon: Icon(Icons.favorite)),
           ),
-          FilledButton(onPressed: () {}, child: Text("Add to cart")),
+          FilledButton(
+            onPressed: () {
+              controller.addToCart(product.id);
+            },
+            child: Text("Add to Cart"),
+          ),
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            //w1 image
+            //  w1 Image
             SizedBox(
               width: double.infinity,
               height: 300,
               child: Image.network("${product.image}", fit: BoxFit.cover),
             ),
+
             Row(
               children: [
                 Expanded(
@@ -60,57 +67,57 @@ class ProductView extends GetView<CartController> {
               ],
             ),
 
-            //w3 product description
+            // w3 Product Description
             HtmlWidget("${product.description}"),
 
-            Row(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: IconButton(
-                    onPressed: () {
-                      controller.decrement();
-                    },
-                    icon: Icon(Icons.remove),
-                  ),
-                ),
-                Gap(10),
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 16,
+            Obx(() {
+              return Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(14),
                     ),
-                    child: Obx(
-                      () => Text(
-                        "${controller.qty.value}",
-                        style: TextStyle(fontSize: 18),
+                    child: IconButton(
+                      onPressed: () {
+                        controller.decrement();
+                      },
+                      icon: Icon(Icons.remove),
+                    ),
+                  ),
+                  Gap(10),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 14,
                       ),
+                      child: Text("${controller.qty}"),
                     ),
                   ),
-                ),
-                Gap(10),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(14),
+                  Gap(10),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        controller.increment();
+                      },
+                      icon: Icon(Icons.add),
+                    ),
                   ),
-                  child: IconButton(
-                    onPressed: () {
-                      controller.increment();
-                    },
-                    icon: Icon((Icons.add)),
-                  ),
-                ),
-              ],
-            ),
+                ],
+              );
+            }),
           ],
         ),
       ),
     );
   }
 }
-// 9845202638
