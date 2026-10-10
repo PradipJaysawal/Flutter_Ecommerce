@@ -27,9 +27,23 @@ class OrderView extends GetView<OrderController> {
               itemCount: cartController.cartItems.value.data.length,
               itemBuilder: (BuildContext context, int index){
                 var item = cartController.cartItems.value.data[index];
-               return ListTile(
-                title: Text("${item.productName}"),
-               );
+               return Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: ListTile(
+                    leading: ClipOval(
+                      child: Image.network(
+                        item.productImage.toString(),
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.shopping_bag, size: 40);
+                        },
+                      ),
+                    ),
+                    title: Text("${item.productName}"),
+                  ),
+                );
 
               }),
 

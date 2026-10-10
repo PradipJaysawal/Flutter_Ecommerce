@@ -37,7 +37,10 @@ class CartView extends GetView<CartController> {
                           OutlinedButton(onPressed: (){
                             Get.back();
                           }, child: Text("No")),
-                          FilledButton(onPressed: (){}, child: Text("Yes")),
+                          FilledButton(onPressed: ()async{
+                            Get.back();
+                            await controller.removeFromCart(product.cartId!);
+                          }, child: Text("Yes")),
                         ]
                       );
                     }, icon: Icon(Icons.delete)),
