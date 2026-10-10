@@ -51,7 +51,7 @@ class OrderView extends GetView<OrderController> {
               FilledButton(onPressed: (){
                 controller.pickImage();
               }, child: Text("Pick Image")),
-
+              SizedBox(height: 20),
               FilledButton(onPressed: (){
                 Loader.show(context);
                 controller.placeOrder(controller.image.value!);
