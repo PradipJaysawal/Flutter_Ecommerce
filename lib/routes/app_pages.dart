@@ -2,6 +2,7 @@ import 'package:fecommerce/routes/app_routes.dart';
 import 'package:fecommerce/view/cart_view.dart';
 import 'package:fecommerce/view/home_view.dart';
 import 'package:fecommerce/view/login_view.dart';
+import 'package:fecommerce/view/order_view.dart';
 import 'package:fecommerce/view/product_view.dart';
 import 'package:fecommerce/view/register_view.dart';
 import 'package:fecommerce/view/splash_view.dart';
@@ -16,5 +17,6 @@ class AppPages {
     GetPage(name: AppRoutes.home, page: () => HomeView()),
     GetPage(name: AppRoutes.product, page: () => ProductView()),
     GetPage(name: AppRoutes.cart, page: () => CartView()),
+    GetPage(name: AppRoutes.order, page: () => OrderView()),
   ];
 }
